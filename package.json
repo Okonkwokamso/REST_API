@@ -4,7 +4,8 @@
   "description": "Building a REST API with node.js, Express, Typescript and MongoDB",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
   },
   "author": "OkonkwoKamso",
   "license": "ISC",
