@@ -12,17 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUserHandler = void 0;
-const logger_1 = __importDefault(require("../utils/logger"));
-const userService_1 = require("../service/userService");
-const createUserHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createUser = void 0;
+const userModel_1 = __importDefault(require("../models/userModel"));
+const createUser = (input) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield (0, userService_1.createUser)(req.body);
-        return user;
+        return yield userModel_1.default.create(input);
     }
     catch (err) {
-        logger_1.default.error(err);
-        return res.status(409).send(err.message);
+        throw new Error(err);
     }
 });
-exports.createUserHandler = createUserHandler;
+exports.createUser = createUser;

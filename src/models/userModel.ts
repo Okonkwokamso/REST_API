@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import bycrypt from "bcrypt";
 import config from "config";
 
-export interface UserDocument extends mongoose.Document {
+export interface UserDocument extends Document {
   email: string;
   password: string;
   name: string;
@@ -12,7 +12,7 @@ export interface UserDocument extends mongoose.Document {
 }
 
 
-const userSchema = new mongoose.Schema({
+const userSchema: Schema<UserDocument> = new Schema({
   email: { 
     type: String, 
     required: true, 
@@ -51,7 +51,7 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
   return bycrypt.compare(candidatePassword, user.password).catch((e) => false);
 };
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model<UserDocument>("User", userSchema)
 
 
 export default User;
