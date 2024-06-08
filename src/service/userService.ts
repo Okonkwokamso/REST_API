@@ -1,4 +1,4 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, FilterQuery } from 'mongoose';
 import validator from 'validator';  
 import { omit } from 'lodash';
 import User, { UserDocument } from '../models/userModel';
@@ -39,31 +39,10 @@ export const validatePassword = async ({ email, password }: ValidatePasswordInpu
   return user.toObject(); // Password is valid
 };
 
+export async function findUser(query: FilterQuery<UserDocument>) {
+  return User.findOne(query).lean();
+}
 
-
-
-
-
-
-
-
-
-
-// export const validatePassword = async ({email, password}: {email: string, password: string} ): Promise<UserDocument | null> => {
-
-//   const user = await User.findOne({ email});
-
-//   if (!user) {
-//     return null;
-//   }
-
-//   const isValid = await user.comparePassword(password);
-//   if (!isValid) {
-//     return null;
-//   }
-//   // return omit(user.toJSON(), "password");
-//   return user;
-// }
 
 
 

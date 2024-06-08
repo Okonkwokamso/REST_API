@@ -62,20 +62,6 @@ exports.getUserSessionHandler = getUserSessionHandler;
 ;
 const deleteUserSession = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // const { userId, sessionId } = req.params;
-        // logger.info(`User ${userId} is trying to delete session ${sessionId}`);
-        // // Validate the userId
-        // if (!mongoose.isValidObjectId(userId)) {
-        //     return res.status(400).json({ error: 'Invalid user ID format' });
-        // }
-        // // Find and delete the session
-        // const result = await Session.findOneAndDelete({ sessionId }).exec();
-        // console.log(result)
-        // if (result) {
-        //     res.status(200).json({ message: 'Session deleted successfully' });
-        // } else {
-        //     res.status(404).json({ error: 'Session not found' });
-        // }
         const sessionId = res.locals.user.session;
         yield (0, sessionService_1.updateSessions)({ _id: sessionId }, { valid: false });
         return res.send({

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validatePassword = exports.createUser = void 0;
+exports.findUser = exports.validatePassword = exports.createUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const createUser = (input) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -41,15 +41,9 @@ const validatePassword = (_a) => __awaiter(void 0, [_a], void 0, function* ({ em
     return user.toObject(); // Password is valid
 });
 exports.validatePassword = validatePassword;
-// export const validatePassword = async ({email, password}: {email: string, password: string} ): Promise<UserDocument | null> => {
-//   const user = await User.findOne({ email});
-//   if (!user) {
-//     return null;
-//   }
-//   const isValid = await user.comparePassword(password);
-//   if (!isValid) {
-//     return null;
-//   }
-//   // return omit(user.toJSON(), "password");
-//   return user;
-// }
+function findUser(query) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return userModel_1.default.findOne(query).lean();
+    });
+}
+exports.findUser = findUser;

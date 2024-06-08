@@ -3,6 +3,7 @@ import {get} from "lodash";
 import config from "config";
 import { omit } from "lodash";
 import { verifyJwt, signJwt } from "../utils/jwtUtils";
+import { reIssueAccessToken } from "../service/sessionService";
 import logger from "../utils/logger";
 import { log } from "console";
 
@@ -24,27 +25,8 @@ export type RequestPayload = Request & {
 
 const deserializeUser = async (req: Request, res: Response, next: NextFunction) => {
 
-  // // Function to extract access token from headers.authorization
-  // function getAccessToken(req: Request): string | null {
-  //     const authHeader = req.headers.authorization;
-  //     if (authHeader && authHeader.startsWith('Bearer ')) {
-  //         return authHeader.split(' ')[1];
-  //     }
-  //     return null;
-  // }
-
-  // const token = getAccessToken(req);
-      
-  // if (token) {
-  //   req['accessToken'] = token;
-  //   logger.info(`Access token: ${token}`);
-  // } else {
-  //   res.status(401).json({ error: 'Unauthorized: Access token is missing or invalid' });
-  // }
-
-
-
   const accessToken = get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
+  const refreshToken = get(req, "headers.-x-refresh")
 
   if (!accessToken) {
     logger.warn("No access token provided");
@@ -60,15 +42,17 @@ const deserializeUser = async (req: Request, res: Response, next: NextFunction) 
     return next();
   }
 
-  // if (expired) {
-  //   logger.warn("JWT has expired");
-  // } else {
-  //   logger.error("JWT verification failed");
-  // }
-
-
-  //console.log(req.accessToken);
-  
+  if (expired && refreshToken) {
+    const newAccessToken = await reIssueAccessToken({ refreshToken: refreshToken as string }); // Cast refreshToken to string
+    
+    if (newAccessToken) {
+      res.setHeader("x-access-token", newAccessToken);
+      const { decoded } = verifyJwt(newAccessToken);
+      res.locals.user = decoded;
+    }
+  } else {
+    logger.error("JWT verification failed");
+  }
 
   return next();
 };
