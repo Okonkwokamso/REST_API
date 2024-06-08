@@ -4,13 +4,8 @@ exports.createUserSchema = void 0;
 const zod_1 = require("zod");
 exports.createUserSchema = (0, zod_1.object)({
     body: (0, zod_1.object)({
-        name: (0, zod_1.object)({
-            first: (0, zod_1.string)({
-                required_error: 'First name is required'
-            }),
-            last: (0, zod_1.string)({
-                required_error: 'Last name is required'
-            }),
+        name: (0, zod_1.string)({
+            required_error: 'First name is required',
         }),
         password: (0, zod_1.string)({
             required_error: 'Password is required'

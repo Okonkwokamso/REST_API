@@ -9,6 +9,7 @@ const validate = (schema: any) => (req: Request, res: Response, next: NextFuncti
       query: req.query,
       params: req.params
     });
+    next();
   } catch (error: any) {
     return res.status(400).json({ message: error.errors });
   }

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = void 0;
+exports.validatePassword = exports.createUser = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const createUser = (input) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -23,3 +23,33 @@ const createUser = (input) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.createUser = createUser;
+const validatePassword = (_a) => __awaiter(void 0, [_a], void 0, function* ({ email, password }) {
+    // Validate email format
+    // if (!validator.isEmail(email)) {
+    //   throw new Error('Invalid email format');
+    // }
+    // Find the user by email
+    const user = yield userModel_1.default.findOne({ email });
+    if (!user) {
+        return null; // User not found
+    }
+    // Compare the provided password with the stored hashed password
+    const isValid = yield user.comparePassword(password);
+    if (!isValid) {
+        return null; // Password does not match
+    }
+    return user.toObject(); // Password is valid
+});
+exports.validatePassword = validatePassword;
+// export const validatePassword = async ({email, password}: {email: string, password: string} ): Promise<UserDocument | null> => {
+//   const user = await User.findOne({ email});
+//   if (!user) {
+//     return null;
+//   }
+//   const isValid = await user.comparePassword(password);
+//   if (!isValid) {
+//     return null;
+//   }
+//   // return omit(user.toJSON(), "password");
+//   return user;
+// }
