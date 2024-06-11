@@ -1,6 +1,4 @@
 import mongoose, { Document, FilterQuery } from 'mongoose';
-import validator from 'validator';  
-import { omit } from 'lodash';
 import User, { UserDocument } from '../models/userModel';
 
 export const createUser = async ( input: Document<Omit<UserDocument, "createdAt" | "updatedAt">> ): Promise<UserDocument> => {
