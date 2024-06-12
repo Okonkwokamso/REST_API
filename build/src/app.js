@@ -13,14 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const config_1 = __importDefault(require("config"));
 const connect_1 = __importDefault(require("./utils/connect"));
 const logger_1 = __importDefault(require("./utils/logger"));
 const routes_1 = __importDefault(require("./routes"));
 const deserializeUser_1 = __importDefault(require("./middleware/deserializeUser"));
-//import tokenMiddleware from "./middleware/getToken";
-const port = config_1.default.get('port');
 const app = (0, express_1.default)();
+const port = process.env.PORT || 1337;
 app.use(express_1.default.json());
 //app.use(tokenMiddleware)
 app.use(deserializeUser_1.default);

@@ -4,13 +4,11 @@ import connect from './utils/connect';
 import logger from './utils/logger';
 import routes from './routes';
 import deserializeUser from './middleware/deserializeUser';
-//import tokenMiddleware from "./middleware/getToken";
 
-
-
-const port = config.get('port') as number;
 
 const app = express();
+
+const port = process.env.PORT || 1337;
 
 app.use(express.json());
 
