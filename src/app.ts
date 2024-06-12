@@ -8,7 +8,7 @@ import deserializeUser from './middleware/deserializeUser';
 
 const app = express();
 
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 13377;
 
 app.use(express.json());
 

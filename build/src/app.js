@@ -18,7 +18,7 @@ const logger_1 = __importDefault(require("./utils/logger"));
 const routes_1 = __importDefault(require("./routes"));
 const deserializeUser_1 = __importDefault(require("./middleware/deserializeUser"));
 const app = (0, express_1.default)();
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 13377;
 app.use(express_1.default.json());
 //app.use(tokenMiddleware)
 app.use(deserializeUser_1.default);
