@@ -5,14 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyJwt = exports.signJwt = void 0;
 const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 // import config from 'config'
 // import { decode } from "punycode";
 const privateKey = fs_1.default.readFileSync(`${__dirname}/../../private.key`, 'utf8');
-const publicKey = fs_1.default.readFileSync(`${__dirname}/../../public.key`, 'utf8');
+const publicKeyPath = path_1.default.resolve(__dirname, '../../public.key');
+const publicKey = fs_1.default.readFileSync(publicKeyPath, 'utf8');
 function signJwt(payload, options) {
     console.log(payload);
-    const privateKey = fs_1.default.readFileSync(`${__dirname}/../../private.key`, 'utf8');
+    const privateKeyPath = path_1.default.resolve(__dirname, '../../private.key');
+    const privateKey = fs_1.default.readFileSync(privateKeyPath, 'utf8');
     return jsonwebtoken_1.default.sign(payload, privateKey, Object.assign(Object.assign({}, (options && options)), { algorithm: 'RS256' }));
 }
 exports.signJwt = signJwt;

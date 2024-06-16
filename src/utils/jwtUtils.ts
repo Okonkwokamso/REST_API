@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import jwt from 'jsonwebtoken'
 import logger from './logger'
 // import config from 'config'
@@ -6,11 +7,14 @@ import logger from './logger'
 
 const privateKey = fs.readFileSync(`${__dirname}/../../private.key`, 'utf8');
 
-const publicKey = fs.readFileSync(`${__dirname}/../../public.key`, 'utf8');
+const publicKeyPath = path.resolve(__dirname, '../../public.key');
+
+const publicKey = fs.readFileSync(publicKeyPath, 'utf8');
 
 export function signJwt(payload: object, options?: jwt.SignOptions): string {
   console.log(payload);
-  const privateKey = fs.readFileSync(`${__dirname}/../../private.key`, 'utf8');
+  const privateKeyPath = path.resolve(__dirname, '../../private.key');
+  const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
   return jwt.sign(payload, privateKey, {
     ...(options && options),
     algorithm: 'RS256', // Ensure the algorithm matches your private key type
