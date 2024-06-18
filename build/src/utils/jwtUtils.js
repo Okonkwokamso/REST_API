@@ -10,11 +10,11 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 // import config from 'config'
 // import { decode } from "punycode";
 const privateKey = fs_1.default.readFileSync(`${__dirname}/../../private.key`, 'utf8');
-const publicKeyPath = path_1.default.resolve(__dirname, '../../public.key');
+const publicKeyPath = path_1.default.resolve(__dirname, './../public.key');
 const publicKey = fs_1.default.readFileSync(publicKeyPath, 'utf8');
 function signJwt(payload, options) {
     console.log(payload);
-    const privateKeyPath = path_1.default.resolve(__dirname, '../../private.key');
+    const privateKeyPath = path_1.default.resolve(__dirname, './../private.key');
     const privateKey = fs_1.default.readFileSync(privateKeyPath, 'utf8');
     return jsonwebtoken_1.default.sign(payload, privateKey, Object.assign(Object.assign({}, (options && options)), { algorithm: 'RS256' }));
 }

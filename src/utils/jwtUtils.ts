@@ -7,13 +7,13 @@ import logger from './logger'
 
 const privateKey = fs.readFileSync(`${__dirname}/../../private.key`, 'utf8');
 
-const publicKeyPath = path.resolve(__dirname, '../../public.key');
+const publicKeyPath = path.resolve(__dirname, './../public.key');
 
 const publicKey = fs.readFileSync(publicKeyPath, 'utf8');
 
 export function signJwt(payload: object, options?: jwt.SignOptions): string {
   console.log(payload);
-  const privateKeyPath = path.resolve(__dirname, '../../private.key');
+  const privateKeyPath = path.resolve(__dirname, './../private.key');
   const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
   return jwt.sign(payload, privateKey, {
     ...(options && options),
