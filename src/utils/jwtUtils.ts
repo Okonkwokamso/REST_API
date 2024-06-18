@@ -5,7 +5,7 @@ import logger from './logger'
 // import config from 'config'
 // import { decode } from "punycode";
 
-const privateKey = fs.readFileSync(`${__dirname}/../../private.key`, 'utf8');
+//const privateKey = fs.readFileSync(`${__dirname}/../../private.key`, 'utf8');
 
 const publicKeyPath = path.resolve(__dirname, './../public.key');
 

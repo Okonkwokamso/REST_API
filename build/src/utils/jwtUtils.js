@@ -9,7 +9,7 @@ const path_1 = __importDefault(require("path"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 // import config from 'config'
 // import { decode } from "punycode";
-const privateKey = fs_1.default.readFileSync(`${__dirname}/../../private.key`, 'utf8');
+//const privateKey = fs.readFileSync(`${__dirname}/../../private.key`, 'utf8');
 const publicKeyPath = path_1.default.resolve(__dirname, './../public.key');
 const publicKey = fs_1.default.readFileSync(publicKeyPath, 'utf8');
 function signJwt(payload, options) {
